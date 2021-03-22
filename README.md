@@ -160,9 +160,10 @@ Curtis "Ovid" Poe, `<ovid at allaroundtheworld.fr>`
 
 # BUGS
 
-Please report any bugs or feature requests to `bug-search-typesense at rt.cpan.org`, or through
-the web interface at [https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Search-Typesense](https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Search-Typesense).  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests to
+`https://github.com/Ovid/Search-Typesense/issues`.  I will be notified, and
+then you'll automatically be notified of progress on your bug as I make
+changes.
 
 # SUPPORT
 

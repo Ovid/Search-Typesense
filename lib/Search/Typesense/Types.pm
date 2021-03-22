@@ -48,7 +48,7 @@ Search::Typesense::Types - Keep our type tools orgnanized
 
 =head1 VERSION
 
-Version 0.02
+VERSION 0.03
 
 =cut
 =head1 DESCRIPTION

@@ -63,7 +63,7 @@ use Search::Typesense::Types qw(
 
 =head1 VERSION
 
-Version 0.02
+VERSION 0.03
 
 =cut
 
@@ -341,7 +341,7 @@ sub _PATCH {
 
     my @args = ref $request
       ? ( json => $request )    # data structures
-      : $request ? $request     # raw POST content
+      : $request ? $request     # raw PATCH content
       :            croak("PATCH $url not allowed without a request");
 
     my $tx = $self->_ua->patch( $url, @args );
@@ -498,16 +498,16 @@ Curtis "Ovid" Poe, C<< <ovid at allaroundtheworld.fr> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-search-typesense at rt.cpan.org>, or through
-the web interface at L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Search-Typesense>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests to
+C<https://github.com/Ovid/Search-Typesense/issues>.  I will be notified, and
+then you'll automatically be notified of progress on your bug as I make
+changes.
 
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
 
     perldoc Search::Typesense
-
 
 You can also look for information at:
 
