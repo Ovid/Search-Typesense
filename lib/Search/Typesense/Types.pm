@@ -8,7 +8,7 @@ use Type::Utils -all;
 # this gets us compile and compile_named
 use Type::Params;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our @EXPORT_OK;
 
@@ -48,7 +48,7 @@ Search::Typesense::Types - Keep our type tools orgnanized
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 =head1 DESCRIPTION

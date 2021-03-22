@@ -1,5 +1,10 @@
 {{$NEXT}}
+          - Renamed purge to delete_all_collections()
+          - Bump hard dependency on Perl to 5.16.0
+          - Make the Moo code more idiomatic
+          - Assert that the port is a PositiveInt
+          - Add kraih and mst to acknowledgements
 
 0.01      2021-03-22 13:22:28 CET
-          Basic interface to Typesense.
+          - Basic interface to Typesense.
 
