@@ -2,7 +2,6 @@
 
 use Test::Most 'bail';
 use Search::Typesense;
-use DDP;
 
 # If, for some strange reason, we've still hit an existing Typesense database,
 # minimize the chance of hitting a valid collection
