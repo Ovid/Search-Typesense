@@ -8,6 +8,8 @@ use Type::Utils -all;
 # this gets us compile and compile_named
 use Type::Params;
 
+our $VERSION = '0.01';
+
 our @EXPORT_OK;
 
 BEGIN {
@@ -44,6 +46,11 @@ Search::Typesense::Types - Keep our type tools orgnanized
       compile
     );
 
+=head1 VERSION
+
+Version 0.01
+
+=cut
 =head1 DESCRIPTION
 
 This is an internal package for L<Search::Typesense>. It's probably overkill,
