@@ -55,6 +55,7 @@ use Search::Typesense::Types qw(
   HashRef
   InstanceOf
   NonEmptyStr
+  PositiveInt
   Str
   compile
 );
@@ -121,7 +122,7 @@ has host => (
 
 has port => (
     is       => 'ro',
-    isa      => NonEmptyStr,
+    isa      => PositiveInt,
     required => 1,
 );
 
