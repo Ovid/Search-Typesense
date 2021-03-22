@@ -148,12 +148,14 @@ my $documents = [
 lives_ok {
     $response =
       $typesense->import_documents( $collection, 'upsert', $documents );
-} 'We should be able to import documents';
+}
+'We should be able to import documents';
 
 $response = $typesense->export_documents($collection);
 eq_or_diff $response, $documents,
-   '... and we should be able to export_documents($collection)';
+  '... and we should be able to export_documents($collection)';
 $response = $typesense->export_documents('compani');
-ok !defined $response, '... but trying to export documents from a non-existing collection should fail';
+ok !defined $response,
+'... but trying to export documents from a non-existing collection should fail';
 
 done_testing;

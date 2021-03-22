@@ -70,28 +70,34 @@ our $VERSION = '0.01';
 has _ua => (
     is      => 'lazy',
     isa     => InstanceOf ['Mojo::UserAgent'],
-    builder => 1,
+    builder => sub {
+        my $self = shift;
+        my $ua   = Mojo::UserAgent->new;
+        $ua->on(
+            start => sub {
+                my ( $ua, $tx ) = @_;
+                $tx->req->headers->header(
+                    'Content-Type' => 'application/json' );
+                $tx->req->headers->header(
+                    'X-TYPESENSE-API-KEY' => $self->api_key );
+            }
+        );
+        return $ua;
+    },
 );
 
-sub _build__ua {
-    my $self = shift;
-    my $ua   = Mojo::UserAgent->new;
-    $ua->on(
-        start => sub {
-            my ( $ua, $tx ) = @_;
-            $tx->req->headers->header( 'Content-Type' => 'application/json' );
-            $tx->req->headers->header(
-                'X-TYPESENSE-API-KEY' => $self->api_key );
-        }
-    );
-    return $ua;
-}
 
 has _url_base => (
-    is      => 'ro',
+    is      => 'lazy',
     isa     => InstanceOf ['Mojo::URL'],
-    lazy    => 1,
-    builder => 1,
+    builder => sub {
+        my $self = shift;
+        my $url  = Mojo::URL->new;
+        $url->scheme( $self->use_https ? 'https' : 'http' );
+        $url->host( $self->host );
+        $url->port( $self->port );
+        return $url;
+    },
 );
 
 has use_https => (
@@ -118,15 +124,6 @@ has port => (
     isa      => NonEmptyStr,
     required => 1,
 );
-
-sub _build__url_base {
-    my $self = shift;
-    my $url  = Mojo::URL->new;
-    $url->scheme( $self->use_https ? 'https' : 'http' );
-    $url->host( $self->host );
-    $url->port( $self->port );
-    return $url;
-}
 
 sub _url {
     my ( $self, $path ) = @_;
@@ -242,7 +239,7 @@ sub _POST {
 
     if ( my $query = $arg_for{query} ) {
         my $parameters = Mojo::Parameters->new(%$query);
-        $url .= "?$parameters";
+        $url->query($parameters);
     }
 
     my @args = ref $request
