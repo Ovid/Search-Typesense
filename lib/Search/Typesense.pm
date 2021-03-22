@@ -79,14 +79,13 @@ has _ua => (
             start => sub {
                 my ( $ua, $tx ) = @_;
                 $tx->req->headers->header(
-                    'Content-Type' => 'application/json' );
-                $tx->req->headers->header( 'X-TYPESENSE-API-KEY' => $key );
+                    'Content-Type' => 'application/json' )
+                  ->header( 'X-TYPESENSE-API-KEY' => $key );
             }
         );
         return $ua;
     },
 );
-
 
 has _url_base => (
     is      => 'lazy',
