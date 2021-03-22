@@ -480,24 +480,19 @@ You can also look for information at:
 
 =over 4
 
-=item * RT: CPAN's request tracker (report bugs here)
+=item * Github Repo
 
-L<https://rt.cpan.org/NoAuth/Bugs.html?Dist=Search-Typesense>
+L<https://github.com/Ovid/Search-Typesense/>
 
-=item * AnnoCPAN: Annotated CPAN documentation
+=item * Issue Tracker
 
-L<http://annocpan.org/dist/Search-Typesense>
-
-=item * CPAN Ratings
-
-L<https://cpanratings.perl.org/d/Search-Typesense>
+L<https://github.com/Ovid/Search-Typesense/issues>
 
 =item * Search CPAN
 
 L<https://metacpan.org/release/Search-Typesense>
 
 =back
-
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -509,7 +504,6 @@ This software is Copyright (c) 2021 by Curtis "Ovid" Poe.
 This is free software, licensed under:
 
   The Artistic License 2.0 (GPL Compatible)
-
 
 =cut
 

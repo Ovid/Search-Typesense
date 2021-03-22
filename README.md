@@ -144,17 +144,13 @@ You can find documentation for this module with the perldoc command.
 
 You can also look for information at:
 
-- RT: CPAN's request tracker (report bugs here)
+- Github Repo
 
-    [https://rt.cpan.org/NoAuth/Bugs.html?Dist=Search-Typesense](https://rt.cpan.org/NoAuth/Bugs.html?Dist=Search-Typesense)
+    [https://github.com/Ovid/Search-Typesense/](https://github.com/Ovid/Search-Typesense/)
 
-- AnnoCPAN: Annotated CPAN documentation
+- Issue Tracker
 
-    [http://annocpan.org/dist/Search-Typesense](http://annocpan.org/dist/Search-Typesense)
-
-- CPAN Ratings
-
-    [https://cpanratings.perl.org/d/Search-Typesense](https://cpanratings.perl.org/d/Search-Typesense)
+    [https://github.com/Ovid/Search-Typesense/issues](https://github.com/Ovid/Search-Typesense/issues)
 
 - Search CPAN
 
