@@ -74,13 +74,13 @@ has _ua => (
     builder => sub {
         my $self = shift;
         my $ua   = Mojo::UserAgent->new;
+        my $key  = $self->api_key;
         $ua->on(
             start => sub {
                 my ( $ua, $tx ) = @_;
                 $tx->req->headers->header(
                     'Content-Type' => 'application/json' );
-                $tx->req->headers->header(
-                    'X-TYPESENSE-API-KEY' => $self->api_key );
+                $tx->req->headers->header( 'X-TYPESENSE-API-KEY' => $key );
             }
         );
         return $ua;
