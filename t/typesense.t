@@ -25,14 +25,14 @@ unless ($typesense) {
 ok $typesense, 'We should have a typesense object';
 
 END {
-    $typesense->purge if $typesense;
+    $typesense->delete_all_collections if $typesense;
 }
 
 #
 # collection management
 #
 
-lives_ok { $typesense->purge }
+lives_ok { $typesense->delete_all_collections }
 'We should be able to purge all typesense collections';
 
 my $collections = $typesense->get_collections;

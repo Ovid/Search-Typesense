@@ -422,15 +422,15 @@ sub import_documents {
     return $response;
 }
 
-=head2 C<purge>
+=head2 C<delete_all_collections>
 
-    $typesense->purge;
+    $typesense->delete_all_collections;
 
 Deletes everything from Typsense. B<Use with caution>!
 
 =cut
 
-sub purge {
+sub delete_all_collections {
     my ($self) = @_;
     my $collections = $self->get_collections;
     foreach my $collection (@$collections) {
