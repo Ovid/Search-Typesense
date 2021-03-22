@@ -493,6 +493,7 @@ L<https://metacpan.org/release/Search-Typesense>
 
 =head1 ACKNOWLEDGEMENTS
 
+Thanks for Sebastian Reidel and Matt Trout for feedback.
 
 =head1 LICENSE AND COPYRIGHT
 
