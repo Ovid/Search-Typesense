@@ -19,6 +19,7 @@ Search::Typesense - Perl interface to Typesense search engine.
         use_https => $bool,
         host      => $host,
         port      => $port,
+        api_key   => $key,
     );
     
     my $results = $typesense->search(
@@ -120,9 +121,9 @@ has host => (
 );
 
 has port => (
-    is       => 'ro',
-    isa      => PositiveInt,
-    required => 1,
+    is      => 'ro',
+    isa     => PositiveInt,
+    default => 8108,
 );
 
 sub _url {
@@ -134,6 +135,33 @@ sub BUILD {
     my $self = shift;
     $self->assert_is_running;
 }
+
+=head1 CONSTRUCTOR
+
+The constructor takes a list (or hashref) of key/value pairs.
+
+    my $typesense = Search::Typesense->new(
+        use_https => $bool,
+        host      => $host,
+        port      => $port,
+        api_key   => $key,
+    );
+
+=head2 C<api_key>
+
+The api key to which will be sent as the C<X-TYPESENSE-API-KEY> header.
+
+=head2 C<host>
+
+The hostname to connect to.
+
+=head2 C<port>
+
+Optional port number to connect to. Defaults to 8108 if not supplied.
+
+=head2 C<use_https>
+
+Optional boolean. Whether or not to connect to Typesense over https. Default true.
 
 =head1 METHODS
 
