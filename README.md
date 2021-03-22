@@ -8,6 +8,7 @@ Search::Typesense - Perl interface to Typesense search engine.
         use_https => $bool,
         host      => $host,
         port      => $port,
+        api_key   => $key,
     );
     
     my $results = $typesense->search(
@@ -31,7 +32,34 @@ engine. Most methods will do one of three things:
 
 # VERSION
 
-Version 0.01
+Version 0.02
+
+# CONSTRUCTOR
+
+The constructor takes a list (or hashref) of key/value pairs.
+
+    my $typesense = Search::Typesense->new(
+        use_https => $bool,
+        host      => $host,
+        port      => $port,
+        api_key   => $key,
+    );
+
+## `api_key`
+
+The api key to which will be sent as the `X-TYPESENSE-API-KEY` header.
+
+## `host`
+
+The hostname to connect to.
+
+## `port`
+
+Optional port number to connect to. Defaults to 8108 if not supplied.
+
+## `use_https`
+
+Optional boolean. Whether or not to connect to Typesense over https. Default true.
 
 # METHODS
 
@@ -120,9 +148,9 @@ Response as shown at [https://typesense.org/docs/0.19.0/api/#import-documents](h
 
 `$action` must be one of `create`, `update`, or `upsert`.
 
-## `purge`
+## `delete_all_collections`
 
-    $typesense->purge;
+    $typesense->delete_all_collections;
 
 Deletes everything from Typsense. **Use with caution**!
 
@@ -157,6 +185,8 @@ You can also look for information at:
     [https://metacpan.org/release/Search-Typesense](https://metacpan.org/release/Search-Typesense)
 
 # ACKNOWLEDGEMENTS
+
+Thanks for Sebastian Reidel and Matt Trout for feedback.
 
 # LICENSE AND COPYRIGHT
 
