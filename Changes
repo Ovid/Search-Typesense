@@ -1,4 +1,7 @@
 {{$NEXT}}
+          - update_document() was broken. It's now fixed and tested.
+
+0.02      2021-03-22 14:01:51 CET
           - Renamed purge to delete_all_collections()
           - Bump hard dependency on Perl to 5.16.0
           - Make the Moo code more idiomatic

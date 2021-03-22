@@ -236,12 +236,7 @@ sub create_collection {
 sub _POST {
     my ( $self, %arg_for ) = @_;
     my $request = $arg_for{request};
-    my $url     = $self->_url( $arg_for{path} );
-
-    if ( my $query = $arg_for{query} ) {
-        my $parameters = Mojo::Parameters->new(%$query);
-        $url->query($parameters);
-    }
+    my $url     = $self->_url( $arg_for{path} )->query( $arg_for{query} || {} );
 
     my @args = ref $request
       ? ( json => $request )    # data structures
@@ -305,11 +300,25 @@ sub update_document {
     state $check = compile( NonEmptyStr, NonEmptyStr, HashRef );
     ( $collection, $document_id, $updates ) =
       $check->( $collection, $document_id, $updates );
-    return $self->_make_request(
-        method  => 'patch',
+    return $self->_PATCH(
         path    => [ 'collections', $collection, 'documents', $document_id ],
         request => $updates
     );
+}
+
+# Yet, we're getting some serious duplication here. Need to refactorit.
+sub _PATCH {
+    my ( $self, %arg_for ) = @_;
+    my $request = $arg_for{request};
+    my $url     = $self->_url( $arg_for{path} )->query( $arg_for{query} || {} );
+
+    my @args = ref $request
+      ? ( json => $request )    # data structures
+      : $request ? $request     # raw POST content
+      :            croak("PATCH $url not allowed without a request");
+
+    my $tx = $self->_ua->patch( $url, @args );
+    return $self->_check_for_failure( $tx, $arg_for{return_transaction} );
 }
 
 =head2 C<delete_document>

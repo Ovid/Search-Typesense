@@ -103,6 +103,9 @@ $response = $typesense->upsert_document( $collection, $document );
 eq_or_diff $response, $document,
 'We should be able to call upsert_document($collection, \%document) and update an existing document';
 
+$response = $typesense->update_document($collection, 125, { num_employees => 15 });
+eq_or_diff $response, { id => 125, num_employees => 15 }, 'We should be able to upsert_document()';
+
 $response = $typesense->search(
     $collection,
     {
