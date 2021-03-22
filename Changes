@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+0.02      2021-03-22 15:38:24 CET
           - port argument now defaults to 8108
           - update_document() was broken. It's now fixed and tested.
           - Renamed purge to delete_all_collections()
