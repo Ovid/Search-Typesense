@@ -2,7 +2,7 @@ package Search::Typesense;
 
 use Moo;
 
-use 5.10.0;
+use v5.16.0;
 use Mojo::JSON qw(decode_json encode_json);
 use Mojo::UserAgent;
 use Mojo::URL;
@@ -68,9 +68,8 @@ Version 0.01
 our $VERSION = '0.01';
 
 has _ua => (
-    is      => 'ro',
+    is      => 'lazy',
     isa     => InstanceOf ['Mojo::UserAgent'],
-    lazy    => 1,
     builder => 1,
 );
 
@@ -223,7 +222,7 @@ sub create_collection {
     ($collection_definition) = $check->($collection_definition);
     my $fields = $collection_definition->{fields};
 
-    foreach my $field ( $fields->@* ) {
+    foreach my $field (@$fields) {
         if ( exists $field->{facet} ) {
             $field->{facet} =
               $field->{facet} ? Mojo::JSON->true : Mojo::JSON->false;
@@ -360,7 +359,7 @@ sub search {
         return_transaction => 1,
     ) or return;
     my $response = $tx->res->json;
-    foreach my $hit ( $response->{hits}->@* ) {
+    foreach my $hit ( @{ $response->{hits} } ) {
         if ( exists $hit->{document}{json} ) {
             $hit->{document}{json} = decode_json( $hit->{document}{json} );
         }
