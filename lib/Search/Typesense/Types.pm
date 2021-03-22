@@ -88,4 +88,4 @@ See L<Type::Params>
 
 See L<Types::Standard>
 
-=cut
+=back
