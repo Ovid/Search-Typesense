@@ -5,10 +5,10 @@ Search::Typesense - Perl interface to Typesense search engine.
 # SYNOPSIS
 
     my $typesense = Search::Typesense->new(
-        use_https => $bool,
-        host      => $host,
-        port      => $port,
-        api_key   => $key,
+        host      => $host,    # required
+        api_key   => $key,     # required
+        port      => $port,    # defaults to 8108
+        use_https => $bool,    # defaults to true
     );
     
     my $results = $typesense->search(
@@ -23,7 +23,9 @@ Search::Typesense - Perl interface to Typesense search engine.
 
 # DESCRIPTION
 
-This is a simple interface to the [Typesense](https://typesense.org/) search
+**ALPHA CODE**. The interface can and will change without warning.
+
+This is an interface to the [Typesense](https://typesense.org/) search
 engine. Most methods will do one of three things:
 
 - Return results as defined in the Typesense documentation (listed per section)
@@ -35,10 +37,10 @@ engine. Most methods will do one of three things:
 The constructor takes a list (or hashref) of key/value pairs.
 
     my $typesense = Search::Typesense->new(
-        use_https => $bool,
-        host      => $host,
-        port      => $port,
-        api_key   => $key,
+        host      => $host,    # required
+        api_key   => $key,     # required
+        port      => $port,    # defaults to 8108
+        use_https => $bool,    # defaults to true
     );
 
 ## `api_key`
