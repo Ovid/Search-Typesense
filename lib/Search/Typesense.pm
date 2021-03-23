@@ -198,7 +198,7 @@ Optional boolean. Whether or not to connect to Typesense over https. Default tru
     my $collection  = $collections->get($collection_name);
     my $results     = $collections->search($collection_name, {q => 'London'});
 
-Returns an instance of C<Search::Typesense::Collection> for managing Typesense collections.
+Returns an instance of L<Search::Typesense::Collection> for managing Typesense collections.
 
 =head2 C<search>
 
@@ -213,7 +213,7 @@ We do this hear mainly because this is the common case.
     my $documents = $typesense->documents;
     my $document  = $documents->delete($collection_name, $document_id);
 
-Returns an instance of C<Search::Typesense::Document> for managing Typesense documents.
+Returns an instance of L<Search::Typesense::Document> for managing Typesense documents.
 
 =head2 C<assert_is_running>
 
