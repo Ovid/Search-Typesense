@@ -16,7 +16,7 @@ separated by spaces. This will allow words such as Chinese or Japanese to
 work with Typesense.
 END
 
-$typesense->create_collection( $test->company_collection_definition );
+$typesense->collections->create( $test->company_collection_definition );
 
 #
 # Documents

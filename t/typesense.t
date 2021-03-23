@@ -12,16 +12,16 @@ my $typesense  = $test->typesense;
 # collection management
 #
 
-lives_ok { $typesense->delete_all_collections }
+lives_ok { $typesense->collections->delete_all }
 'We should be able to purge all typesense collections';
 
-my $collections = $typesense->get_collections;
+my $collections = $typesense->collections->get;
 eq_or_diff $collections, [],
-  '... and get_collections() should tell us we have no collections';
+  '... and collections->get() should tell us we have no collections';
 
-$typesense->create_collection( $test->company_collection_definition );
+$typesense->collections->create( $test->company_collection_definition );
 
-$collections = $typesense->get_collections;
+$collections = $typesense->collections->get;
 is @$collections, 1, 'We should have a collection after creating it';
 is $collections->[0]{name}, $collection,
   '... and it should be the collection we have created';

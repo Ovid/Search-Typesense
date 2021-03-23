@@ -8,8 +8,8 @@ with 'Search::Typesense::Role::Request';
 use Mojo::JSON qw(decode_json encode_json);
 use Mojo::UserAgent;
 use Mojo::URL;
-use Mojo::Parameters;
 use Carp qw(croak);
+use Search::Typesense::Collection;
 use Search::Typesense::Version;
 use Search::Typesense::Types qw(
   ArrayRef
@@ -19,10 +19,8 @@ use Search::Typesense::Types qw(
   InstanceOf
   NonEmptyStr
   PositiveInt
-  Str
   compile
 );
-
 
 =head1 NAME
 
@@ -67,6 +65,19 @@ engine. Most methods will do one of three things:
 =cut
 
 our $VERSION = '0.05';
+
+has collections => (
+    is       => 'lazy',
+    isa      => InstanceOf ['Search::Typesense::Collection'],
+    init_arg => undef,
+    builder  => sub {
+        my $self = shift;
+        return Search::Typesense::Collection->new(
+            user_agent => $self->_ua,
+            url        => $self->_url_base,
+        );
+    },
+);
 
 # this sub without a body is called a "forward declaration" and it allows the
 # requires() in Search::Typesense::Role::Request to realize that we really do
@@ -195,69 +206,6 @@ sub typesense_version {
     my $result = $self->_GET( path => ['debug'] ) or return;
     return Search::Typesense::Version->new( version_string => $result->{version} );
 }
-
-=head2 C<get_collections>
-
-    if ( my $collections = $typesense->get_collections ) {
-        # returns all collections
-    }
-    if ( my $collections = $typesense->get_collections($collection_name) ) {
-        # returns collection matching $collection_name, if any
-    }
-
-Response shown at L<https://typesense.org/docs/0.19.0/api/#retrieve-collection>
-
-=cut
-
-sub get_collections {
-    my ( $self, $collection ) = @_;
-    state $check = compile(Str);
-    my @collection = $check->( $collection // '' );
-    return $self->_GET( path => [ 'collections', @collection ] );
-}
-
-=head2 C<delete_collection>
-
-    my $response = $typesense->delete_collection($collection_name);
-
-Response shown at L<https://typesense.org/docs/0.19.0/api/#drop-collection>
-
-=cut
-
-sub delete_collection {
-    my ( $self, $collection ) = @_;
-    state $check = compile(NonEmptyStr);
-    ($collection) = $check->($collection);
-    return $self->_DELETE( path => [ 'collections', $collection ] );
-}
-
-=head2 C<create_collection>
-
-    my $collection = $typesense->create_collection(\%definition);
-
-Arguments and response as shown at
-L<https://typesense.org/docs/0.19.0/api/#create-collection>
-
-=cut
-
-sub create_collection {
-    my ( $self, $collection_definition ) = @_;
-    state $check = compile(HashRef);
-    ($collection_definition) = $check->($collection_definition);
-    my $fields = $collection_definition->{fields};
-
-    foreach my $field (@$fields) {
-        if ( exists $field->{facet} ) {
-            $field->{facet} =
-              $field->{facet} ? Mojo::JSON->true : Mojo::JSON->false;
-        }
-    }
-
-    return $self->_POST(
-        path    => ['collections'],
-        request => $collection_definition
-    );
-} ## end sub create_collection
 
 =head2 C<create_document>
 
@@ -427,23 +375,6 @@ sub import_documents {
         $response->{success} += 0;
     }
     return $response;
-}
-
-=head2 C<delete_all_collections>
-
-    $typesense->delete_all_collections;
-
-Deletes everything from Typsense. B<Use with caution>!
-
-=cut
-
-sub delete_all_collections {
-    my ($self) = @_;
-    my $collections = $self->get_collections;
-    foreach my $collection (@$collections) {
-        my $name = $collection->{name};
-        $self->delete_collection($name);
-    }
 }
 
 =head1 AUTHOR
