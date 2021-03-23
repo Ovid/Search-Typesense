@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+0.05      2021-03-23 17:59:07 CET
+          - Collection and Document behaviors are now moved into their own
+            subclasses.
+
 0.04      2021-03-23 17:01:20 CET
           - Move author tests to xt directory.
           - Expose the Typesense version (this appears to not be documented)

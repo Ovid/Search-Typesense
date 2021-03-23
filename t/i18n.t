@@ -16,7 +16,7 @@ separated by spaces. This will allow words such as Chinese or Japanese to
 work with Typesense.
 END
 
-$typesense->create_collection( $test->company_collection_definition );
+$typesense->collections->create( $test->company_collection_definition );
 
 #
 # Documents
@@ -28,9 +28,9 @@ my $document = {
     'num_employees' => 5215,
     'country'       => 'USA'
 };
-my $response = $typesense->create_document( $collection, $document, );
+my $response = $typesense->documents->create( $collection, $document, );
 eq_or_diff $response, $document,
-  'We should be able to call create_document($collection, \%document)';
+  'We should be able to call documents->create($collection, \%document)';
 
 $response = $typesense->search(
     $collection,

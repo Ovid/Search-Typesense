@@ -24,7 +24,7 @@ sub _build_typesense {
         );
     };
     if ($typesense) {
-        $typesense->delete_all_collections;
+        $typesense->collections->delete_all;
         return $typesense;
     }
 
@@ -80,7 +80,7 @@ sub company_collection_definition {
 
 sub DEMOLISH {
     my $typesense = $_[0]->typesense;
-    $typesense->delete_all_collections if $typesense;
+    $typesense->collections->delete_all if $typesense;
 }
 
 1;
