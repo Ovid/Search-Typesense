@@ -36,9 +36,9 @@ my $document = {
     'num_employees' => 5215,
     'country'       => 'USA'
 };
-my $response = $typesense->create_document( $collection, $document, );
+my $response = $typesense->documents->create( $collection, $document, );
 eq_or_diff $response, $document,
-  'We should be able to call create_document($collection, \%document)';
+  'We should be able to call documents->create($collection, \%document)';
 
 $document = {
     'id'            => '125',
@@ -46,9 +46,9 @@ $document = {
     'num_employees' => 20,
     'country'       => 'France'
 };
-$response = $typesense->upsert_document( $collection, $document, );
+$response = $typesense->documents->upsert( $collection, $document, );
 eq_or_diff $response, $document,
-'We should be able to call upsert_document($collection, \%document) with a non-existent document';
+'We should be able to call documents->upsert($collection, \%document) with a non-existent document';
 
 $document = {
     'id'            => '125',
@@ -56,14 +56,24 @@ $document = {
     'num_employees' => 10,
     'country'       => 'France'
 };
-$response = $typesense->upsert_document( $collection, $document );
+$response = $typesense->documents->upsert( $collection, $document );
 eq_or_diff $response, $document,
-'We should be able to call upsert_document($collection, \%document) and update an existing document';
+'We should be able to call documents->upsert($collection, \%document) and update an existing document';
 
 $response =
-  $typesense->update_document( $collection, 125, { num_employees => 15 } );
+  $typesense->documents->update( $collection, 125, { num_employees => 15 } );
 eq_or_diff $response, { id => 125, num_employees => 15 },
-  'We should be able to upsert_document()';
+  'We should be able to documents->upsert()';
+
+$response = $typesense->documents->delete( $collection, 125 );
+my $deleted = {
+    'company_name'  => 'All Around the World',
+    'country'       => 'France',
+    'id'            => '125',
+    'num_employees' => 15
+};
+eq_or_diff $response, $deleted,
+'We should be able to call documents->delete($collection, $id) and delete a document';
 
 $response = $typesense->search(
     $collection,
@@ -76,7 +86,7 @@ $response = $typesense->search(
 );
 
 is $response->{found}, 1, 'We should have one response found from our search()';
-is $response->{out_of}, 2, '... out of the total number of records';
+is $response->{out_of}, 1, '... out of the total number of records';
 eq_or_diff $response->{hits}[0]{document},
   {
     company_name    => 'Stark Industries',
@@ -109,14 +119,14 @@ my $documents = [
 
 lives_ok {
     $response =
-      $typesense->import_documents( $collection, 'upsert', $documents );
+      $typesense->documents->import( $collection, 'upsert', $documents );
 }
 'We should be able to import documents';
 
-$response = $typesense->export_documents($collection);
+$response = $typesense->documents->export($collection);
 eq_or_diff $response, $documents,
-  '... and we should be able to export_documents($collection)';
-$response = $typesense->export_documents('compani');
+  '... and we should be able to documents->export($collection)';
+$response = $typesense->documents->export('compani');
 ok !defined $response,
 '... but trying to export documents from a non-existing collection should fail';
 

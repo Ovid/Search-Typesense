@@ -9,6 +9,8 @@ use Mojo::JSON qw(decode_json encode_json);
 use Mojo::UserAgent;
 use Mojo::URL;
 use Carp qw(croak);
+
+use Search::Typesense::Document ();
 use Search::Typesense::Collection;
 use Search::Typesense::Version;
 use Search::Typesense::Types qw(
@@ -73,6 +75,19 @@ has collections => (
     builder  => sub {
         my $self = shift;
         return Search::Typesense::Collection->new(
+            user_agent => $self->_ua,
+            url        => $self->_url_base,
+        );
+    },
+);
+
+has documents => (
+    is       => 'lazy',
+    isa      => InstanceOf ['Search::Typesense::Document'],
+    init_arg => undef,
+    builder  => sub {
+        my $self = shift;
+        return Search::Typesense::Document->new(
             user_agent => $self->_ua,
             url        => $self->_url_base,
         );
@@ -207,81 +222,6 @@ sub typesense_version {
     return Search::Typesense::Version->new( version_string => $result->{version} );
 }
 
-=head2 C<create_document>
-
-    my $document = $typesense->create_document($collection, \%data);
-
-Arguments and response as shown at L<https://typesense.org/docs/0.19.0/api/#index-document>
-
-=cut
-
-sub create_document {
-    my ( $self, $collection, $document ) = @_;
-    state $check = compile( NonEmptyStr, HashRef );
-    ( $collection, $document ) = $check->( $collection, $document );
-    return $self->_POST(
-        path    => [ 'collections', $collection, 'documents' ],
-        request => $document
-    );
-}
-
-=head2 C<upsert_document>
-
-    my $document = $typesense->upsert_document($collection, \%data);
-
-Arguments and response as shown at L<https://typesense.org/docs/0.19.0/api/#upsert>
-
-=cut
-
-sub upsert_document {
-    my ( $self, $collection, $document ) = @_;
-    state $check = compile( NonEmptyStr, HashRef );
-    ( $collection, $document ) = $check->( $collection, $document );
-
-    # XXX It's unclear to me how to have a request body and a query string at
-    # the same time with the Mojo::UserAgent.
-    return $self->_POST(
-        path    => [ 'collections', $collection, 'documents' ],
-        request => $document,
-        query   => { action => 'upsert' },
-    );
-}
-
-=head2 C<update_document>
-
-    my $document = $typesense->update_document($collection, $document_id, \%data);
-
-Arguments and response as shown at L<https://typesense.org/docs/0.19.0/api/#update-document>
-
-=cut
-
-sub update_document {
-    my ( $self, $collection, $document_id, $updates ) = @_;
-    state $check = compile( NonEmptyStr, NonEmptyStr, HashRef );
-    ( $collection, $document_id, $updates ) =
-      $check->( $collection, $document_id, $updates );
-    return $self->_PATCH(
-        path    => [ 'collections', $collection, 'documents', $document_id ],
-        request => $updates
-    );
-}
-
-=head2 C<delete_document>
-
-    my $document = $typesense->delete_document($collection_name, $document_id);
-
-Arguments and response as shown at L<https://typesense.org/docs/0.19.0/api/#delete-document>
-
-=cut
-
-sub delete_document {
-    my ( $self, $collection, $document_id ) = @_;
-    state $check = compile( NonEmptyStr, NonEmptyStr );
-    ( $collection, $document_id ) = $check->( $collection, $document_id );
-    return $self->_DELETE(
-        path => [ 'collections', $collection, 'documents', $document_id ] );
-}
-
 =head2 C<search>
 
     my $results = $typesense->search($collection_name, {q => 'London'});
@@ -318,64 +258,6 @@ sub search {
     }
     return $response;
 } ## end sub search
-
-=head2 C<export_documents>
-
-    my $export = $typesense->export_documents($collection_name);
-
-Response as shown at L<https://typesense.org/docs/0.19.0/api/#export-documents>
-
-(An arrayref of hashrefs)
-
-=cut
-
-sub export_documents {
-    my ( $self, $collection ) = @_;
-    state $check = compile(NonEmptyStr);
-    ($collection) = $check->($collection);
-    my $tx = $self->_GET(
-        path => [ 'collections', $collection, 'documents', 'export' ],
-        return_transaction => 1
-    ) or return;    # 404
-    return [ map { decode_json($_) } split /\n/ => $tx->res->body ];
-}
-
-=head2 C<import_documents>
-
-    my $response = $typesense->import_documents(
-      $collection_name,
-      $action,
-      \@documents,
-   );
-
-Response as shown at L<https://typesense.org/docs/0.19.0/api/#import-documents>
-
-C<$action> must be one of C<create>, C<update>, or C<upsert>.
-
-=cut
-
-sub import_documents {
-    my $self = shift;
-    state $check = compile(
-        NonEmptyStr,
-        Enum [qw/create upsert update/],
-        ArrayRef [HashRef],
-    );
-    my ( $collection, $action, $documents ) = $check->(@_);
-    my $request_body = join "\n" => map { encode_json($_) } @$documents;
-
-    my $tx = $self->_POST(
-        path    => [ 'collections', $collection, 'documents', "import" ],
-        request => $request_body,
-        query   => { action => $action },
-        return_transaction => 1,
-    );
-    my $response = $tx->res->json;
-    if ( exists $response->{success} ) {
-        $response->{success} += 0;
-    }
-    return $response;
-}
 
 =head1 AUTHOR
 
