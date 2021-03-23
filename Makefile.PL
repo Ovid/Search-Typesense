@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.014000;
+use 5.016000;
 
 use ExtUtils::MakeMaker;
 
@@ -14,7 +14,7 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "Search-Typesense",
   "LICENSE" => "perl",
-  "MIN_PERL_VERSION" => "5.014000",
+  "MIN_PERL_VERSION" => "5.016000",
   "NAME" => "Search::Typesense",
   "PREREQ_PM" => {
     "Carp" => 0,
@@ -25,9 +25,10 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0,
     "File::Spec" => 0,
-    "Test::More" => 0
+    "Test::More" => 0,
+    "Test::Most" => "0.37"
   },
-  "VERSION" => "0.02",
+  "VERSION" => "0.03",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -41,6 +42,7 @@ my %FallbackPrereqs = (
   "Mojolicious" => "9.11",
   "Moo" => "2.005_000",
   "Test::More" => 0,
+  "Test::Most" => "0.37",
   "Type::Tiny" => "1.011_011"
 );
 

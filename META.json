@@ -44,7 +44,7 @@
             "Mojolicious" : "9.11",
             "Moo" : "2.005_000",
             "Type::Tiny" : "1.011_011",
-            "perl" : "v5.14.0"
+            "perl" : "v5.16.0"
          }
       },
       "test" : {
@@ -54,18 +54,19 @@
          "requires" : {
             "ExtUtils::MakeMaker" : "0",
             "File::Spec" : "0",
-            "Test::More" : "0"
+            "Test::More" : "0",
+            "Test::Most" : "0.37"
          }
       }
    },
    "provides" : {
       "Search::Typesense" : {
          "file" : "lib/Search/Typesense.pm",
-         "version" : "0.02"
+         "version" : "0.03"
       },
       "Search::Typesense::Types" : {
          "file" : "lib/Search/Typesense/Types.pm",
-         "version" : "0.02"
+         "version" : "0.03"
       }
    },
    "release_status" : "stable",
@@ -80,7 +81,7 @@
          "web" : "https://github.com/Ovid/Search-Typesense"
       }
    },
-   "version" : "0.02",
+   "version" : "0.03",
    "x_generated_by_perl" : "v5.26.2",
    "x_serialization_backend" : "Cpanel::JSON::XS version 4.19"
 }

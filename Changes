@@ -1,4 +1,8 @@
 {{$NEXT}}
+
+0.03      2021-03-23 09:33:29 CET
+
+0.03      2021-03-23 09:32:02 CET
           - Fix dependencies in the dist.ini file. This should resolve
             https://github.com/Ovid/Search-Typesense/issues/1
           - Start a proper Test::Search::Typesense module. It's only a stub
