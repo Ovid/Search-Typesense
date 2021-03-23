@@ -32,7 +32,7 @@ engine. Most methods will do one of three things:
 
 # VERSION
 
-Version 0.02
+VERSION 0.03
 
 # CONSTRUCTOR
 
