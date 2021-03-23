@@ -1,31 +1,12 @@
 #!/usr/bin/env perl
 
+use lib 't/lib';
 use Test::Most 'bail';
-use Search::Typesense;
+use Test::Search::Typesense;
 
-# If, for some strange reason, we've still hit an existing Typesense database,
-# minimize the chance of hitting a valid collection
-my $collection = 'XXX_this_will_be_deleted_after_testing_XXX';
-
-my $typesense = eval {
-    Search::Typesense->new(
-        use_https => 0,
-        host      => 'localhost',
-        port      => 7777,
-        api_key   => 777,
-    );
-};
-unless ($typesense) {
-    plan( skip_all =>
-"Typesense does not appear to be running. See the CONTRIBUTING.md document with this distribution."
-    );
-}
-
-ok $typesense, 'We should have a typesense object';
-
-END {
-    $typesense->delete_all_collections if $typesense;
-}
+my $test       = Test::Search::Typesense->new;
+my $collection = $test->collection_name;
+my $typesense  = $test->typesense;
 
 #
 # collection management
@@ -102,8 +83,10 @@ $response = $typesense->upsert_document( $collection, $document );
 eq_or_diff $response, $document,
 'We should be able to call upsert_document($collection, \%document) and update an existing document';
 
-$response = $typesense->update_document($collection, 125, { num_employees => 15 });
-eq_or_diff $response, { id => 125, num_employees => 15 }, 'We should be able to upsert_document()';
+$response =
+  $typesense->update_document( $collection, 125, { num_employees => 15 } );
+eq_or_diff $response, { id => 125, num_employees => 15 },
+  'We should be able to upsert_document()';
 
 $response = $typesense->search(
     $collection,
