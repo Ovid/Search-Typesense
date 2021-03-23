@@ -17,10 +17,10 @@ Search::Typesense - Perl interface to Typesense search engine.
 =head1 SYNOPSIS
 
     my $typesense = Search::Typesense->new(
-        use_https => $bool,
-        host      => $host,
-        port      => $port,
-        api_key   => $key,
+        host      => $host,    # required
+        api_key   => $key,     # required
+        port      => $port,    # defaults to 8108
+        use_https => $bool,    # defaults to true
     );
     
     my $results = $typesense->search(
@@ -136,10 +136,10 @@ sub BUILD {
 The constructor takes a list (or hashref) of key/value pairs.
 
     my $typesense = Search::Typesense->new(
-        use_https => $bool,
-        host      => $host,
-        port      => $port,
-        api_key   => $key,
+        host      => $host,    # required
+        api_key   => $key,     # required
+        port      => $port,    # defaults to 8108
+        use_https => $bool,    # defaults to true
     );
 
 =head2 C<api_key>
