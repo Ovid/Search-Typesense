@@ -46,11 +46,6 @@ Search::Typesense::Types - Keep our type tools orgnanized
       compile
     );
 
-=head1 VERSION
-
-VERSION 0.03
-
-=cut
 =head1 DESCRIPTION
 
 This is an internal package for L<Search::Typesense>. It's probably overkill,

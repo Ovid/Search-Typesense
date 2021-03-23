@@ -62,12 +62,6 @@ use Search::Typesense::Types qw(
   compile
 );
 
-=head1 VERSION
-
-VERSION 0.03
-
-=cut
-
 our $VERSION = '0.04';
 
 has _ua => (
