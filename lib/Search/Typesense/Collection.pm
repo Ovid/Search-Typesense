@@ -5,6 +5,7 @@ use v5.16.0;
 use Moo;
 with 'Search::Typesense::Role::Request';
 
+use Carp 'croak';
 use Search::Typesense::Types qw(
   HashRef
   InstanceOf
@@ -61,6 +62,43 @@ Response shown at L<https://typesense.org/docs/0.19.0/api/#retrieve-collection>
 
 our $VERSION = '0.05';
 
+=head2 C<search>
+
+    my $results = $typesense->collections->search($collection_name, {q => 'London'});
+
+The parameters for C<$query> are defined at
+L<https://typesense.org/docs/0.19.0/api/#search-collection>, as are the results.
+
+Unlike other methods, if we find nothing, we still return the data structure
+(instead of C<undef> instead of a 404 exception).
+
+=cut
+
+sub search {
+    my ( $self, $collection, $query ) = @_;
+    state $check = compile( NonEmptyStr, HashRef );
+    ( $collection, $query ) = $check->( $collection, $query );
+
+    unless ( exists $query->{q} ) {
+        croak("Query parameter 'q' is required for searching");
+    }
+    unless ( exists $query->{query_by} ) {
+        $query->{query_by} = 'search';
+    }
+    my $tx = $self->_GET(
+        path    => [ 'collections', $collection, 'documents', 'search' ],
+        request => $query,
+        return_transaction => 1,
+    ) or return;
+    my $response = $tx->res->json;
+    foreach my $hit ( @{ $response->{hits} } ) {
+        if ( exists $hit->{document}{json} ) {
+            $hit->{document}{json} = decode_json( $hit->{document}{json} );
+        }
+    }
+    return $response;
+}
+
 sub get {
     my ( $self, $collection ) = @_;
     state $check = compile(Str);
@@ -115,7 +153,7 @@ sub delete {
 
     $typesense->collections->delete_all;
 
-Deletes everything from Typsense. B<Use with caution>!
+Deletes everything from Typesense. B<Use with caution>!
 
 =cut
 

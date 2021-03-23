@@ -75,7 +75,7 @@ my $deleted = {
 eq_or_diff $response, $deleted,
 'We should be able to call documents->delete($collection, $id) and delete a document';
 
-$response = $typesense->search(
+$response = $typesense->collections->search(
     $collection,
     {
         q         => 'stark',
@@ -85,7 +85,7 @@ $response = $typesense->search(
     }
 );
 
-is $response->{found}, 1, 'We should have one response found from our search()';
+is $response->{found}, 1, 'We should have one response found from our collections->search()';
 is $response->{out_of}, 1, '... out of the total number of records';
 eq_or_diff $response->{hits}[0]{document},
   {

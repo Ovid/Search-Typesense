@@ -72,6 +72,7 @@ has collections => (
     is       => 'lazy',
     isa      => InstanceOf ['Search::Typesense::Collection'],
     init_arg => undef,
+    handles  => [qw/search/],
     builder  => sub {
         my $self = shift;
         return Search::Typesense::Collection->new(
@@ -191,6 +192,29 @@ Optional boolean. Whether or not to connect to Typesense over https. Default tru
 
 =head1 METHODS
 
+=head2 C<collections>
+
+    my $collections = $typesense->collections;
+    my $collection  = $collections->get($collection_name);
+    my $results     = $collections->search($collection_name, {q => 'London'});
+
+Returns an instance of C<Search::Typesense::Collection> for managing Typesense collections.
+
+=head2 C<search>
+
+    my $results = $typesense->search($collection_name, {q => 'London'});
+
+Shorthand that delegated to C<< $typesense->collections->search(...) >>.
+
+We do this hear mainly because this is the common case.
+
+=head2 C<documents>
+
+    my $documents = $typesense->documents;
+    my $document  = $documents->delete($collection_name, $document_id);
+
+Returns an instance of C<Search::Typesense::Document> for managing Typesense documents.
+
 =head2 C<assert_is_running>
 
     $typesense->assert_is_running;
@@ -221,43 +245,6 @@ sub typesense_version {
     my $result = $self->_GET( path => ['debug'] ) or return;
     return Search::Typesense::Version->new( version_string => $result->{version} );
 }
-
-=head2 C<search>
-
-    my $results = $typesense->search($collection_name, {q => 'London'});
-
-The parameters for C<$query> are defined at
-L<https://typesense.org/docs/0.19.0/api/#search-collection>, as are the results.
-
-Unlike other methods, if we find nothing, we still return the data structure
-(instead of C<undef> instead of a 404 exception).
-
-=cut
-
-sub search {
-    my ( $self, $collection, $query ) = @_;
-    state $check = compile( NonEmptyStr, HashRef );
-    ( $collection, $query ) = $check->( $collection, $query );
-
-    unless ( exists $query->{q} ) {
-        croak("Query parameter 'q' is required for searching");
-    }
-    unless ( exists $query->{query_by} ) {
-        $query->{query_by} = 'search';
-    }
-    my $tx = $self->_GET(
-        path    => [ 'collections', $collection, 'documents', 'search' ],
-        request => $query,
-        return_transaction => 1,
-    ) or return;
-    my $response = $tx->res->json;
-    foreach my $hit ( @{ $response->{hits} } ) {
-        if ( exists $hit->{document}{json} ) {
-            $hit->{document}{json} = decode_json( $hit->{document}{json} );
-        }
-    }
-    return $response;
-} ## end sub search
 
 =head1 AUTHOR
 
