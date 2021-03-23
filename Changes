@@ -1,5 +1,6 @@
 {{$NEXT}}
           - Move author tests to xt directory.
+          - Expose the Typesense version (this appears to not be documented)
 
 0.03      2021-03-23 09:32:02 CET
           - Fix dependencies in the dist.ini file. This should resolve

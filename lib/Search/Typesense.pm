@@ -8,6 +8,7 @@ use Mojo::UserAgent;
 use Mojo::URL;
 use Mojo::Parameters;
 use Carp qw(croak);
+use Search::Typesense::Version;
 
 =head1 NAME
 
@@ -177,6 +178,23 @@ C<croak> with a message explaining the error.
 sub assert_is_running {
     my $self = shift;
     $self->_GET( path => ['health'] );
+}
+
+=head2 C<typesense_version>
+
+    my $version = $typesense->typesense_version;
+
+Returns an instance of L<Search::Typesense::Version>.
+
+If your version of Typesense is older than C<0.8.0>, this method will return
+nothing.
+
+=cut
+
+sub typesense_version {
+    my $self = shift;
+    my $result = $self->_GET( path => ['debug'] ) or return;
+    return Search::Typesense::Version->new( version_string => $result->{version} );
 }
 
 =head2 C<get_collections>
