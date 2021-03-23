@@ -1,4 +1,6 @@
 {{$NEXT}}
+
+0.04      2021-03-23 17:01:20 CET
           - Move author tests to xt directory.
           - Expose the Typesense version (this appears to not be documented)
 
