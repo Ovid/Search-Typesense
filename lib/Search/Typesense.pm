@@ -64,7 +64,7 @@ use Search::Typesense::Types qw(
   compile
 );
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 has _ua => (
     is      => 'lazy',
