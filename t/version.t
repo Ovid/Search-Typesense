@@ -23,7 +23,7 @@ like $version->minor, qr/^\d+$/a,
 like $version->patch, qr/^\d+$/a,
   'We should be able to fetch the patch Typesense version';
 
-my $version = Search::Typesense::Version->new( version_string => '1.2.3' );
+$version = Search::Typesense::Version->new( version_string => '1.2.3' );
 is $version->major, 1, 'Major version number should be correct';
 is $version->minor, 2, 'Minor version number should be correct';
 is $version->patch, 3, 'Patch version number should be correct';
