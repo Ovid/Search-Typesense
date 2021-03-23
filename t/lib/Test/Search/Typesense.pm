@@ -27,7 +27,7 @@ sub _build_typesense {
         $typesense->delete_all_collections;
         return $typesense;
     }
-    Test::More::BAIL_OUT(
+    Test::More::plan( skip_all =>
 "Typesense does not appear to be running. See the CONTRIBUTING.md document with this distribution."
     );
 }
