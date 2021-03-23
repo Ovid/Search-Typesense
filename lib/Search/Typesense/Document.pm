@@ -36,7 +36,7 @@ public.
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 =head2 C<create>
 

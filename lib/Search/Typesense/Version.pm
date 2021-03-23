@@ -7,7 +7,7 @@ use Search::Typesense::Types qw(
   PositiveOrZeroInt
 );
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 has version_string => (
     is       => 'ro',

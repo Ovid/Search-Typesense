@@ -7,7 +7,7 @@ use Search::Typesense::Types qw(
   compile
 );
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 requires qw(
   _ua

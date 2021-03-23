@@ -66,7 +66,7 @@ engine. Most methods will do one of three things:
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 has collections => (
     is       => 'lazy',
