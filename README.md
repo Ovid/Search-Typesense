@@ -30,10 +30,6 @@ engine. Most methods will do one of three things:
 - Return nothing if Typesense returns a 404.
 - `croak` if Typesense returns an error.
 
-# VERSION
-
-VERSION 0.03
-
 # CONSTRUCTOR
 
 The constructor takes a list (or hashref) of key/value pairs.
@@ -69,6 +65,15 @@ Optional boolean. Whether or not to connect to Typesense over https. Default tru
 
 This does nothing if we can connect to Typesense. Otherwise, this method will
 `croak` with a message explaining the error.
+
+## `typesense_version`
+
+    my $version = $typesense->typesense_version;
+
+Returns an instance of [Search::Typesense::Version](https://metacpan.org/pod/Search::Typesense::Version).
+
+If your version of Typesense is older than `0.8.0`, this method will return
+nothing.
 
 ## `get_collections`
 
