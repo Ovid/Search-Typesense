@@ -1,4 +1,9 @@
 {{$NEXT}}
+          - Fix dependencies in the dist.ini file. This should resolve
+            https://github.com/Ovid/Search-Typesense/issues/1
+          - Start a proper Test::Search::Typesense module. It's only a stub
+            right now, but it simplifies some common code.
+          - Lay the groundwork for more i18n tests in the future.
 
 0.02      2021-03-22 15:38:24 CET
           - port argument now defaults to 8108
