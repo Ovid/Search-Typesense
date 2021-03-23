@@ -48,7 +48,35 @@ END
 
 # If, for some strange reason, we've still hit an existing Typesense database,
 # minimize the chance of hitting a valid collection
-sub collection_name { 'XXX_this_will_be_deleted_after_testing_XXX' }
+sub company_collection_name {
+    'company_XXX_this_will_be_deleted_after_testing_XXX';
+}
+
+sub company_collection_definition {
+    my $self = shift;
+    return {
+        'name'          => $self->company_collection_name,
+        'num_documents' => 0,
+        'fields'        => [
+            {
+                'name'  => 'company_name',
+                'type'  => 'string',
+                'facet' => 0,
+            },
+            {
+                'name'  => 'num_employees',
+                'type'  => 'int32',
+                'facet' => 0,
+            },
+            {
+                'name'  => 'country',
+                'type'  => 'string',
+                'facet' => 1,
+            }
+        ],
+        'default_sorting_field' => 'num_employees'
+    };
+}
 
 sub DEMOLISH {
     my $typesense = $_[0]->typesense;

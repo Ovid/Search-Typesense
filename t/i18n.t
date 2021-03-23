@@ -6,7 +6,7 @@ use Test::Most 'bail';
 use Test::Search::Typesense;
 
 my $test       = Test::Search::Typesense->new;
-my $collection = $test->collection_name;
+my $collection = $test->company_collection_name;
 my $typesense  = $test->typesense;
 
 explain <<'END';
@@ -16,31 +16,7 @@ separated by spaces. This will allow words such as Chinese or Japanese to
 work with Typesense.
 END
 
-$typesense->create_collection(
-    {
-        'name'          => $collection,
-        'num_documents' => 0,
-        'fields'        => [
-            {
-                'name'  => 'company_name',
-                'type'  => 'string',
-                'facet' => 0,
-            },
-            {
-                'name'  => 'num_employees',
-                'type'  => 'int32',
-                'facet' => 0,
-            },
-            {
-                'name'  => 'country',
-                'type'  => 'string',
-                'facet' => 1,
-            }
-        ],
-        'default_sorting_field' => 'num_employees'
-    }
-
-);
+$typesense->create_collection( $test->company_collection_definition );
 
 #
 # Documents

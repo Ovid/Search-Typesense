@@ -5,7 +5,7 @@ use Test::Most 'bail';
 use Test::Search::Typesense;
 
 my $test       = Test::Search::Typesense->new;
-my $collection = $test->collection_name;
+my $collection = $test->company_collection_name;
 my $typesense  = $test->typesense;
 
 #
@@ -19,31 +19,8 @@ my $collections = $typesense->get_collections;
 eq_or_diff $collections, [],
   '... and get_collections() should tell us we have no collections';
 
-$typesense->create_collection(
-    {
-        'name'          => $collection,
-        'num_documents' => 0,
-        'fields'        => [
-            {
-                'name'  => 'company_name',
-                'type'  => 'string',
-                'facet' => 0,
-            },
-            {
-                'name'  => 'num_employees',
-                'type'  => 'int32',
-                'facet' => 0,
-            },
-            {
-                'name'  => 'country',
-                'type'  => 'string',
-                'facet' => 1,
-            }
-        ],
-        'default_sorting_field' => 'num_employees'
-    }
+$typesense->create_collection( $test->company_collection_definition );
 
-);
 $collections = $typesense->get_collections;
 is @$collections, 1, 'We should have a collection after creating it';
 is $collections->[0]{name}, $collection,
