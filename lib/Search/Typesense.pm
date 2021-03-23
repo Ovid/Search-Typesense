@@ -35,7 +35,9 @@ Search::Typesense - Perl interface to Typesense search engine.
 
 =head1 DESCRIPTION
 
-This is a simple interface to the L<Typesense|https://typesense.org/> search
+B<ALPHA CODE>. The interface can and will change without warning.
+
+This is an interface to the L<Typesense|https://typesense.org/> search
 engine. Most methods will do one of three things:
 
 =over 4
