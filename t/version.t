@@ -7,12 +7,7 @@ use Search::Typesense::Version;
 
 my $test      = Test::Search::Typesense->new;
 my $typesense = $test->typesense;
-
-#
-# collection management
-#
-
-my $version = $typesense->typesense_version;
+my $version   = $typesense->typesense_version;
 
 like $version->version_string, qr/^\d+\.\d+\.\d+$/a,
   'We should be able to fetch the Typesense version';
