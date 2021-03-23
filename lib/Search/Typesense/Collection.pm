@@ -3,7 +3,10 @@ package Search::Typesense::Collection;
 use v5.16.0;
 
 use Moo;
-with 'Search::Typesense::Role::Request';
+with qw(
+  Search::Typesense::Role::Request
+  Search::Typesense::Role::UserAgentInterface
+);
 
 use Carp 'croak';
 use Search::Typesense::Types qw(
@@ -12,24 +15,6 @@ use Search::Typesense::Types qw(
   NonEmptyStr
   Str
   compile
-);
-
-sub _ua;
-has _ua => (
-    is       => 'lazy',
-    isa      => InstanceOf ['Mojo::UserAgent'],
-    weak_ref => 1,
-    init_arg => 'user_agent',
-    required => 1,
-);
-
-sub _url_base;
-has _url_base => (
-    is       => 'lazy',
-    isa      => InstanceOf ['Mojo::URL'],
-    weak_ref => 1,
-    init_arg => 'url',
-    required => 1,
 );
 
 =head1 NAME

@@ -81,3 +81,9 @@ sub _handle_request {
 } ## end sub _check_for_failure
 
 1;
+
+__END__
+
+=head1 NAME
+
+Search::Typesense::Role::Request - No user-serviceable parts inside.
