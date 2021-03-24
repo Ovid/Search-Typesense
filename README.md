@@ -21,6 +21,8 @@ Search::Typesense - Perl interface to Typesense search engine.
         }
     }
 
+[Check here for a comparison to ElasticSearch and similar technologies](https://typesense.org/typesense-vs-algolia-vs-elasticsearch-vs-meilisearch/).
+
 # DESCRIPTION
 
 **ALPHA CODE**. The interface can and will change without warning.
