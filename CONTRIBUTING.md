@@ -47,8 +47,10 @@ distribution](https://metacpan.org/pod/Search::Typesense).
 
 ### Start Hacking
 
-Once that's good, you can create a new branch, via `git checkout -b
-branch-name` and start hacking. When you're done, just issue a pull request.
+Once you have the tests passing, you're good to start.
+
+Create a new branch, via `git checkout -b branch-name` and start hacking. When
+you're done, just issue a pull request.
 
 If you're wondering what you can hack on, see the `TODO` section below.
 
@@ -96,7 +98,7 @@ a feature can work. For example, if we add Federated/Multisearch, we should
 
 ### Make Tests Configurable
 
-If, for some reason, you can use the `docker` example above to get a test
+If, for some reason, you can't use the `docker` example above to get a test
 instance of Typesense running, we might want to configure
 `t/lib/Test/Search/Typesense.pm` to recognize environment variables to point
 at a test instance of Typesense that you've already set up. However, the test
