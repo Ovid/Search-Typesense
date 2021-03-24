@@ -1,8 +1,47 @@
 # How to Help
 
-If you'd improve the Perl interface to Typesense (the tests particularly need
-more love), be aware that the tests assume Typesense is running on a
-non-standard port, 7777, with the api key of 777.
+## TODO
+
+There are quite a few things we would like to have for this module.
+
+### Additional Features
+
+* [Federated / Multisearch](https://typesense.org/docs/0.19.0/api/documents.html#federated-multi-search)
+* [Delete by Query](https://typesense.org/docs/0.19.0/api/documents.html#delete-by-query)
+* [CSV Imports](https://typesense.org/docs/0.19.0/api/documents.html#import-a-csv-file)
+* [Configuring import batch size](https://typesense.org/docs/0.19.0/api/documents.html#configure-batch-size)
+* [API key management](https://typesense.org/docs/0.19.0/api/api-keys.html)
+* [Curated Documents](https://typesense.org/docs/0.19.0/api/curation.html)
+* [Aliases](https://typesense.org/docs/0.19.0/api/collection-alias.html)
+* [Synonyms](https://typesense.org/docs/0.19.0/api/synonyms.html)
+* [Cluster Operations](https://typesense.org/docs/0.19.0/api/cluster-operations.html)
+
+### More Tests
+
+In addition to the above, we love far more tests (especially covering
+failures). We also rely on a test Typesense server being up and running (see
+"Configuring Typesense" below). It would be nice to have a fallback strategy
+if a live server isn't available, but this becomes a headache as features
+sometimes change between Typesense versions.
+
+### Version Checking
+
+We have an internal version object. It would be nice to use that to test if
+a feature can work. For example, if we add Federated/Multisearch, we should
+`warn` or `croak` if someone requests this on a version less than `0.19.0`.
+
+## Running the Tests
+
+If you're not familiar with
+[Dist::Zilla](https://metacpan.org/pod/Dist::Zilla), don't worry about it. The
+tests can still be run via `prove -rl t`. You can see the `dist.ini` for the
+list of dependencies, or the `Makefile.PL` from the [the CPAN
+distribution](https://metacpan.org/pod/Search::Typesense).
+
+## Configuring Typesense
+
+The tests assume Typesense is running on a non-standard port, 7777, with the
+api key of 777.
 
 If you use docker, you can get Typesense up and running with:
 
