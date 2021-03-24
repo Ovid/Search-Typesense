@@ -194,6 +194,10 @@ Optional boolean. Whether or not to connect to Typesense over https. Default tru
 
 =head1 METHODS
 
+For CRUD operations on collections and documents, see the documentation for
+C<collections> (L<Search::Typesense::Collection>) and C<documents>
+(L<Search::Typesense::Document>).
+
 =head2 C<collections>
 
     my $collections = $typesense->collections;
