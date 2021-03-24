@@ -34,9 +34,8 @@ If you use docker, you can get Typesense up and running with:
         typesense/typesense:0.19.0 \
         --data-dir /data --api-key=777
 
-We run tests on docker with a non-standard port to avoid any chance of
-interfering with a live installation. I know the chances are low, but it's
-still possible.
+We run tests on docker with a non-standard port to minimize the chance of
+interfering with a live installation (though it's still possible).
 
 ### Running the Tests
 
