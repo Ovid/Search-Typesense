@@ -63,6 +63,10 @@ Optional boolean. Whether or not to connect to Typesense over https. Default tru
 
 # METHODS
 
+For CRUD operations on collections and documents, see the documentation for
+`collections` ([Search::Typesense::Collection](https://metacpan.org/pod/Search::Typesense::Collection)) and `documents`
+([Search::Typesense::Document](https://metacpan.org/pod/Search::Typesense::Document)).
+
 ## `collections`
 
     my $collections = $typesense->collections;
@@ -77,7 +81,8 @@ Returns an instance of [Search::Typesense::Collection](https://metacpan.org/pod/
 
 Shorthand that delegated to `$typesense->collections->search(...)`.
 
-We do this hear mainly because this is the common case.
+We provide this on the top-level `$typesense` object because this is the
+common case.
 
 ## `documents`
 
@@ -101,6 +106,12 @@ Returns an instance of [Search::Typesense::Version](https://metacpan.org/pod/Sea
 
 If your version of Typesense is older than `0.8.0`, this method will return
 nothing.
+
+# INTERNATIONALIZATION (I18N)
+
+Currently Typesense supports languages that use spaces as a word separator. In
+the future, a new tokenizer will be added to support languages such as Chinese
+or Japanese. I do not know the timeframe for this.
 
 # AUTHOR
 
