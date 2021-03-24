@@ -208,7 +208,8 @@ Returns an instance of L<Search::Typesense::Collection> for managing Typesense c
 
 Shorthand that delegated to C<< $typesense->collections->search(...) >>.
 
-We do this hear mainly because this is the common case.
+We provide this on the top-level C<$typesense> object because this is the
+common case.
 
 =head2 C<documents>
 
@@ -247,6 +248,16 @@ sub typesense_version {
     my $result = $self->_GET( path => ['debug'] ) or return;
     return Search::Typesense::Version->new( version_string => $result->{version} );
 }
+
+1;
+
+__END__
+
+=head1 INTERNATIONALIZATION (I18N)
+
+Currently Typesense supports languages that use spaces as a word separator. In
+the future, a new tokenizer will be added to support languages such as Chinese
+or Japanese. I do not know the timeframe for this.
 
 =head1 AUTHOR
 
@@ -294,7 +305,3 @@ This software is Copyright (c) 2021 by Curtis "Ovid" Poe.
 This is free software, licensed under:
 
   The Artistic License 2.0 (GPL Compatible)
-
-=cut
-
-1;    # End of Search::Typesense
