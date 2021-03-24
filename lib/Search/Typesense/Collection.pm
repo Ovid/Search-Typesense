@@ -67,21 +67,12 @@ sub search {
     unless ( exists $query->{q} ) {
         croak("Query parameter 'q' is required for searching");
     }
-    unless ( exists $query->{query_by} ) {
-        $query->{query_by} = 'search';
-    }
     my $tx = $self->_GET(
         path    => [ 'collections', $collection, 'documents', 'search' ],
         request => $query,
         return_transaction => 1,
     ) or return;
-    my $response = $tx->res->json;
-    foreach my $hit ( @{ $response->{hits} } ) {
-        if ( exists $hit->{document}{json} ) {
-            $hit->{document}{json} = decode_json( $hit->{document}{json} );
-        }
-    }
-    return $response;
+    return $tx->res->json;
 }
 
 sub get {
