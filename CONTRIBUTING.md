@@ -57,6 +57,12 @@ Many places in the docs refer you back to the official Typesense
 documentation. It would be lovely if we could have more full-featured examples
 in the POD.
 
+### INI File Support
+
+It would be nice to allow this:
+
+    my $typesense = Search::Typesense->new( config => 'typesense.ini' );
+
 ### More Tests
 
 In addition to the above, we love far more tests (especially covering
@@ -70,3 +76,12 @@ sometimes change between Typesense versions.
 We have an internal version object. It would be nice to use that to test if
 a feature can work. For example, if we add Federated/Multisearch, we should
 `warn` or `croak` if someone requests this on a version less than `0.19.0`.
+
+### Make Tests Configurable
+
+If, for some reason, you can use the `docker` example above to get a test
+instance of Typesense running, we might want to configure
+`t/lib/Test/Search/Typesense.pm` to recognize environment variables to point
+at a test instance of Typesense that you've already set up. However, the test
+suite runs `$typesense->collections->delete_all`, so this will **destroy**
+your Typesense data. This is definitely a "proceed with caution" area.
