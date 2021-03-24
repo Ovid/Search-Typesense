@@ -1,5 +1,23 @@
 # How to Help
 
+## Quickstart
+
+If you have Perl v5.16.0 (or higher) and docker installed:
+
+    git clone git@github.com:Ovid/Search-Typesense.git
+    cd Search-Typesense
+    cpan  Mojolicious Moo Type::Tiny Test::Most
+    # or
+    cpanm Mojolicious Moo Type::Tiny Test::Most
+    docker run                           \
+          -p 7777:8108 -v/tmp:/data      \
+          typesense/typesense:0.19.0     \
+          --data-dir /data --api-key=777
+    prove -rl t
+
+If you get through all of the above steps and the `prove` command output ends
+with `Result: PASS`, you're good to go.
+
 ## Getting Started
 
 You'll need to get Typesense up and running and then run the tests.
