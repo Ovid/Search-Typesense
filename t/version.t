@@ -19,9 +19,11 @@ like $version->patch, qr/^\d+$/a,
   'We should be able to fetch the patch Typesense version';
 
 $version = Search::Typesense::Version->new( version_string => '1.2.3' );
-is $version->major, 1, 'Major version number should be correct';
-is $version->minor, 2, 'Minor version number should be correct';
-is $version->patch, 3, 'Patch version number should be correct';
+is $version->major,      1, 'Major version number should be correct';
+is $version->minor,      2, 'Minor version number should be correct';
+is $version->patch,      3, 'Patch version number should be correct';
+is $version->comparator, '001002003',
+  'We should be able to get a numeric comparison string';
 
 throws_ok { Search::Typesense::Version->new( version_string => '0.01' ) }
 qr/\QInvalid version string: 0.01/,

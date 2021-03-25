@@ -24,6 +24,9 @@ has [qw/major minor patch/] => (
 sub BUILD {
     my $self    = shift;
     my $version = $self->version_string;
+
+    # this isn't quite semver, but it seems to fit what Typesense is doing
+    # See https://semver.org/ if this breaks
     unless ( $version =~ /^\d+\.\d+\.\d+$/a ) {
         croak("Invalid version string: $version");
     }
@@ -31,6 +34,11 @@ sub BUILD {
     $self->_set_major( $version[0] );
     $self->_set_minor( $version[1] );
     $self->_set_patch( $version[2] );
+}
+
+sub comparator {
+    my $self = shift;
+    return sprintf "%03d%03d%03d" => $self->major, $self->minor, $self->patch;
 }
 
 1;
@@ -76,3 +84,6 @@ Returns the minor version number.
 
 Returns the patch version number.
 
+=head2 C<comparator>
+
+Returns a numeric string suitable for numeric comparisons between versions.

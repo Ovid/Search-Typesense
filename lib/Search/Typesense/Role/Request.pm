@@ -1,6 +1,7 @@
 package Search::Typesense::Role::Request;
 
 use v5.16.0;
+use Carp 'croak';
 use Moo::Role;
 use Search::Typesense::Types qw(
   Enum
