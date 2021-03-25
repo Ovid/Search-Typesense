@@ -48,8 +48,8 @@ sub create {
     state $check = compile( NonEmptyStr, HashRef );
     ( $collection, $document ) = $check->( $collection, $document );
     return $self->_POST(
-        path    => [ 'collections', $collection, 'documents' ],
-        request => $document
+        path => [ 'collections', $collection, 'documents' ],
+        body => $document
     );
 }
 
@@ -66,12 +66,10 @@ sub upsert {
     state $check = compile( NonEmptyStr, HashRef );
     ( $collection, $document ) = $check->( $collection, $document );
 
-    # XXX It's unclear to me how to have a request body and a query string at
-    # the same time with the Mojo::UserAgent.
     return $self->_POST(
-        path    => [ 'collections', $collection, 'documents' ],
-        request => $document,
-        query   => { action => 'upsert' },
+        path  => [ 'collections', $collection, 'documents' ],
+        body  => $document,
+        query => { action => 'upsert' },
     );
 }
 
@@ -89,8 +87,8 @@ sub update {
     ( $collection, $document_id, $updates ) =
       $check->( $collection, $document_id, $updates );
     return $self->_PATCH(
-        path    => [ 'collections', $collection, 'documents', $document_id ],
-        request => $updates
+        path => [ 'collections', $collection, 'documents', $document_id ],
+        body => $updates
     );
 }
 
@@ -153,12 +151,12 @@ sub import {
         ArrayRef [HashRef],
     );
     my ( $collection, $action, $documents ) = $check->(@_);
-    my $request_body = join "\n" => map { encode_json($_) } @$documents;
+    my $body = join "\n" => map { encode_json($_) } @$documents;
 
     my $tx = $self->_POST(
-        path    => [ 'collections', $collection, 'documents', "import" ],
-        request => $request_body,
-        query   => { action => $action },
+        path  => [ 'collections', $collection, 'documents', "import" ],
+        body  => $body,
+        query => { action => $action },
         return_transaction => 1,
     );
     my $response = $tx->res->json;

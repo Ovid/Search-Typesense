@@ -33,9 +33,7 @@ sub _url {
 
 sub _GET {
     my ( $self, %arg_for ) = @_;
-    my $request = $arg_for{request};
-    my @args    = $request ? ( form => $request ) : ();
-    return $self->_handle_request( \%arg_for, \@args );
+    return $self->_handle_request( \%arg_for );
 }
 
 sub _DELETE {
@@ -45,15 +43,15 @@ sub _DELETE {
 
 sub _POST {
     my ( $self, %arg_for ) = @_;
-    my $request = $arg_for{request};
-    my @args    = ref $request ? ( json => $request ) : $request;
+    my $body = $arg_for{body};
+    my @args = ref $body ? ( json => $body ) : $body;
     return $self->_handle_request( \%arg_for, \@args );
 }
 
 sub _PATCH {
     my ( $self, %arg_for ) = @_;
-    my $request = $arg_for{request};
-    my @args    = ref $request ? ( json => $request ) : $request;
+    my $body = $arg_for{body};
+    my @args = ref $body ? ( json => $body ) : $body;
     return $self->_handle_request( \%arg_for, \@args );
 }
 
@@ -91,7 +89,7 @@ sub _handle_request {
     }
 
     return $arg_for->{return_transaction} ? $tx : $tx->res->json;
-} ## end sub _check_for_failure
+}
 
 1;
 

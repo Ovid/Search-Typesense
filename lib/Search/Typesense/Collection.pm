@@ -65,8 +65,8 @@ sub search {
         croak("Query parameter 'q' is required for searching");
     }
     my $tx = $self->_GET(
-        path    => [ 'collections', $collection, 'documents', 'search' ],
-        request => $query,
+        path  => [ 'collections', $collection, 'documents', 'search' ],
+        query => $query,
         return_transaction => 1,
     ) or return;
     return $tx->res->json;
@@ -102,8 +102,8 @@ sub create {
     }
 
     return $self->_POST(
-        path    => ['collections'],
-        request => $collection_definition
+        path => ['collections'],
+        body => $collection_definition
     );
 }
 

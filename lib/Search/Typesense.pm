@@ -252,9 +252,10 @@ nothing.
 =cut
 
 sub typesense_version {
-    my $self = shift;
+    my $self   = shift;
     my $result = $self->_GET( path => ['debug'] ) or return;
-    return Search::Typesense::Version->new( version_string => $result->{version} );
+    return Search::Typesense::Version->new(
+        version_string => $result->{version} );
 }
 
 1;
