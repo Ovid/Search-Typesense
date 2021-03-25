@@ -122,3 +122,11 @@ instance of Typesense running, we might want to configure
 at a test instance of Typesense that you've already set up. However, the test
 suite runs `$typesense->collections->delete_all`, so this will **destroy**
 your Typesense data. This is definitely a "proceed with caution" area.
+
+# Dist::Zilla
+
+This distribution, as mentioned, uses Dist::Zilla for deploying. If you don't
+know what that is, don't worry about it. If you do know what that is and want
+to play around, you can install all deps with:
+
+    dzil authordeps --missing | cpanm
