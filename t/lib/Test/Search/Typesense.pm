@@ -2,7 +2,7 @@ package Test::Search::Typesense;
 
 use Moo;
 use Test::Most ();
-use Search::Typesense;
+use Test::Search::Typesense::Cached;
 use Search::Typesense::Types qw(
   InstanceOf
 );
@@ -15,8 +15,9 @@ has typesense => (
 
 sub _build_typesense {
     my $self      = shift;
-    my $typesense = eval {
-        Search::Typesense->new(
+    my $typesense;
+    eval {
+        $typesense = Test::Search::Typesense::Cached->new(
             use_https => 0,
             host      => 'localhost',
             port      => 7777,
@@ -28,11 +29,14 @@ sub _build_typesense {
         return $typesense;
     }
 
+    my $reason = $@;
     Test::Most::explain(<<"END");
 If they don't have Typesense running, we skip the tests and give them the
 information they need to get the tests running. However, if they're running a
 bizarrely old version of Typesense (< 0.8.0), we don't guarantee support and
 we bail out.
+
+Error reason: $reason
 END
     Test::More::plan( skip_all =>
           "Typesense does not appear to be running. See the CONTRIBUTING.md document with this distribution."

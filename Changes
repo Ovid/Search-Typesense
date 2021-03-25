@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+          - Tests can now cache their output and be rerun without a Typesense
+            server. Delete the t/cache directory to require a Typesense server
+            again.
           - Consolidate the http request behavior into a single role,
             Search::Typesense::Role::Request.
           - Standardized HTTP request args in _GET, _POST, _PATCH, and _DELETE
