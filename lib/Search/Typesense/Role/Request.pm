@@ -72,7 +72,8 @@ sub _handle_request {
     # args, if any (those can become part of a query string for GET, or part
     # of the body for other HTTP verbs
     my @args = $args ? @$args : ();
-    my $url = $self->_url( $arg_for->{path} )->query( $arg_for->{query} || {} );
+    my $url
+      = $self->_url( $arg_for->{path} )->query( $arg_for->{query} || {} );
     my $tx  = $self->_ua->$method( $url, @args );
     my $res = $tx->res;
 

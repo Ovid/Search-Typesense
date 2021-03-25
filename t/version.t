@@ -25,6 +25,6 @@ is $version->patch, 3, 'Patch version number should be correct';
 
 throws_ok { Search::Typesense::Version->new( version_string => '0.01' ) }
 qr/\QInvalid version string: 0.01/,
-'Trying to create a version number from an invalid version string should fail';
+  'Trying to create a version number from an invalid version string should fail';
 
 done_testing;

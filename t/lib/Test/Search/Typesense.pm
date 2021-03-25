@@ -35,11 +35,11 @@ bizarrely old version of Typesense (< 0.8.0), we don't guarantee support and
 we bail out.
 END
     Test::More::plan( skip_all =>
-"Typesense does not appear to be running. See the CONTRIBUTING.md document with this distribution."
+          "Typesense does not appear to be running. See the CONTRIBUTING.md document with this distribution."
     );
     unless ( $typesense->typesense_version ) {
         Test::More::diag(
-"https://github.com/typesense/typesense-api-spec/commit/778ad3e0d2bdf23e6ccc1b23113ae6f48ec345fb"
+            "https://github.com/typesense/typesense-api-spec/commit/778ad3e0d2bdf23e6ccc1b23113ae6f48ec345fb"
         );
         Test::More::BAIL_OUT(
             "You're using a version of Typesense earlier than 0.8.0.");

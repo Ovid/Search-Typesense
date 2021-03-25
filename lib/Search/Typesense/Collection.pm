@@ -96,8 +96,8 @@ sub create {
 
     foreach my $field (@$fields) {
         if ( exists $field->{facet} ) {
-            $field->{facet} =
-              $field->{facet} ? Mojo::JSON->true : Mojo::JSON->false;
+            $field->{facet}
+              = $field->{facet} ? Mojo::JSON->true : Mojo::JSON->false;
         }
     }
 

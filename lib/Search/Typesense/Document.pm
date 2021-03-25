@@ -84,8 +84,8 @@ Arguments and response as shown at L<https://typesense.org/docs/0.19.0/api/#upda
 sub update {
     my ( $self, $collection, $document_id, $updates ) = @_;
     state $check = compile( NonEmptyStr, NonEmptyStr, HashRef );
-    ( $collection, $document_id, $updates ) =
-      $check->( $collection, $document_id, $updates );
+    ( $collection, $document_id, $updates )
+      = $check->( $collection, $document_id, $updates );
     return $self->_PATCH(
         path => [ 'collections', $collection, 'documents', $document_id ],
         body => $updates

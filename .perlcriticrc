@@ -1,0 +1,14 @@
+severity = 4
+
+[TestingAndDebugging::RequireUseStrict]
+equivalent_modules = Test::Most
+
+[TestingAndDebugging::RequireUseWarnings]
+equivalent_modules = Test::Most
+
+#--------------------------------------------------------------
+# I do not agree with these at all, so never load them
+
+[-Subroutines::ProhibitBuiltinHomonyms]
+[-Subroutines::RequireArgUnpacking]
+[-Subroutines::RequireFinalReturn]
