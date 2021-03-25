@@ -3,10 +3,7 @@ package Search::Typesense::Document;
 use v5.16.0;
 
 use Moo;
-with qw(
-  Search::Typesense::Role::Request
-  Search::Typesense::Role::UserAgentInterface
-);
+with qw(Search::Typesense::Role::Request);
 
 use Mojo::JSON qw(decode_json encode_json);
 use Search::Typesense::Types qw(

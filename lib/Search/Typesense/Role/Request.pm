@@ -4,14 +4,26 @@ use v5.16.0;
 use Moo::Role;
 use Search::Typesense::Types qw(
   Enum
+  InstanceOf
   compile
 );
 
 our $VERSION = '0.07';
 
-requires qw(
-  _ua
-  _url_base
+has _ua => (
+    is       => 'lazy',
+    isa      => InstanceOf ['Mojo::UserAgent'],
+    weak_ref => 1,
+    init_arg => 'user_agent',
+    required => 1,
+);
+
+has _url_base => (
+    is       => 'lazy',
+    isa      => InstanceOf ['Mojo::URL'],
+    weak_ref => 1,
+    init_arg => 'url',
+    required => 1,
 );
 
 sub _url {

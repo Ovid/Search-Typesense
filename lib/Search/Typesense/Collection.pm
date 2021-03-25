@@ -3,10 +3,7 @@ package Search::Typesense::Collection;
 use v5.16.0;
 
 use Moo;
-with qw(
-  Search::Typesense::Role::Request
-  Search::Typesense::Role::UserAgentInterface
-);
+with qw(Search::Typesense::Role::Request);
 
 use Carp 'croak';
 use Search::Typesense::Types qw(
