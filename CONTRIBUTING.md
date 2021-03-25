@@ -70,6 +70,24 @@ There are quite a few things we would like to have for this module.
 * [Synonyms](https://typesense.org/docs/0.19.0/api/synonyms.html)
 * [Cluster Operations](https://typesense.org/docs/0.19.0/api/cluster-operations.html)
 
+### Transfer
+
+I would like this to work:
+
+    $typesense1->transfer_data( to   => $typesense2 );
+    $typesense1->transfer_data( from => $typesense2 );
+
+The above is very useful when migrating a Typesense server to another
+platform.
+
+Internally, it would probably do something like this pseudo-code:
+
+    foreach collection in typesense1->collections:
+        typesense2->import(collection->export)
+
+This shouldn't be too hard, it will require two Typesense test servers. We
+also don't want to try to transfer data from a typesene server to itself.
+
 ### More Documentation
 
 Many places in the docs refer you back to the official Typesense
