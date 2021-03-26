@@ -1,5 +1,7 @@
 package Search::Typesense::Version;
 
+# ABSTRACT: Version object for the Typesense server version
+
 use Moo;
 use Carp qw(croak);
 use Search::Typesense::Types qw(
@@ -44,10 +46,6 @@ sub comparator {
 1;
 
 __END__
-
-=head1 NAME
-
-Search::Typesense::Version - Version object for the Typesense server
 
 =head1 DESCRIPTION
 

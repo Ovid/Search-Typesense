@@ -1,4 +1,6 @@
 package Search::Typesense::Types;
+# ABSTRACT: Types and type tools for Search::Typesense
+
 
 use strict;
 use warnings;
@@ -27,10 +29,6 @@ BEGIN {
 1;
 
 __END__
-
-=head1 NAME
-
-Search::Typesense::Types - Keep our type tools orgnanized
 
 =head1 SYNOPSIS
 

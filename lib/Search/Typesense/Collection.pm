@@ -1,5 +1,7 @@
 package Search::Typesense::Collection;
 
+# ABSTRACT: Collection - CRUD for Typesense collections
+
 use v5.16.0;
 
 use Moo;
@@ -13,10 +15,6 @@ use Search::Typesense::Types qw(
   Str
   compile
 );
-
-=head1 NAME
-
-Search::Typesense::Collection - CRUD for Typesense collections
 
 =head1 SYNOPSIS
 
@@ -140,4 +138,3 @@ sub delete_all {
 }
 
 1;
-

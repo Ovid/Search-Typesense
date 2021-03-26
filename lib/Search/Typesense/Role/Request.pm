@@ -1,5 +1,7 @@
 package Search::Typesense::Role::Request;
 
+# ABSTRACT: No user-serviceable parts inside.
+
 use v5.16.0;
 use Carp 'croak';
 use Moo::Role;
@@ -94,9 +96,3 @@ sub _handle_request {
 }
 
 1;
-
-__END__
-
-=head1 NAME
-
-Search::Typesense::Role::Request - No user-serviceable parts inside.

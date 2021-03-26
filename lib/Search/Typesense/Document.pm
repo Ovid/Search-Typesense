@@ -1,4 +1,5 @@
 package Search::Typesense::Document;
+# ABSTRACT: CRUD for Typesense documents
 
 use v5.16.0;
 
@@ -15,10 +16,6 @@ use Search::Typesense::Types qw(
   Str
   compile
 );
-
-=head1 NAME
-
-Search::Typesense::Document - CRUD for Typesense documents
 
 =head1 SYNOPSIS
 
@@ -167,4 +164,3 @@ sub import {
 }
 
 1;
-
