@@ -9,7 +9,7 @@ use Search::Typesense::Types qw(
   compile
 );
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 has _ua => (
     is       => 'lazy',
