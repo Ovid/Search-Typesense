@@ -1,4 +1,5 @@
 package Search::Typesense;
+# ABSTRACT: Perl interface to the Typesense search engine
 
 use v5.16.0;
 
@@ -23,10 +24,6 @@ use Search::Typesense::Types qw(
   PositiveInt
   compile
 );
-
-=head1 NAME
-
-Search::Typesense - Perl interface to Typesense search engine.
 
 =head1 SYNOPSIS
 
