@@ -77,7 +77,7 @@ Returns the major version number.
 
 Returns the minor version number.
 
-=head2 C<path>
+=head2 C<patch>
 
     my $version = $typesense->typesense_version;
     my $patch   = $version->patch;
