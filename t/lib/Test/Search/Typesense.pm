@@ -14,7 +14,7 @@ has typesense => (
 );
 
 sub _build_typesense {
-    my $self      = shift;
+    my $self = shift;
     my $typesense;
     eval {
         $typesense = Test::Search::Typesense::Cached->new(

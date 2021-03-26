@@ -4,16 +4,27 @@
 
 If you have Perl v5.16.0 (or higher) and docker installed:
 
-    git clone git@github.com:Ovid/Search-Typesense.git
+    git clone git@github.com:Ovid/Search-Typesense.git Mojo::UserAgent::Mockable
     cd Search-Typesense
-    cpan  Mojolicious Moo Type::Tiny Test::Most
+    cpan autodie Mojo::UserAgent::Mockable Mojolicious Moo Test::Most Test::Perl::Critic Test::PerlTidy Type::Tiny
     # or
-    cpanm Mojolicious Moo Type::Tiny Test::Most
+    cpanm autodie Mojo::UserAgent::Mockable Mojolicious Moo Test::Most Test::Perl::Critic Test::PerlTidy Type::Tiny
+
+Alternatively, if you're using `Dist::Zilla`:
+
+    dzil listdeps --missing --author --cpanm-versions | cpanm
+
+Then just run the tests:
+
+    prove -rl t
+
+If you wish to run tests against a Typesense server:
+
     docker run                           \
           -p 7777:8108 -v/tmp:/data      \
           typesense/typesense:0.19.0     \
           --data-dir /data --api-key=777
-    prove -rl t
+    PERL_TEST_TYPESENSE_MODE=devel prove -rl t
 
 If you get through all of the above steps and the `prove` command output ends
 with `Result: PASS`, you're good to go.
@@ -24,8 +35,9 @@ You'll need to get Typesense up and running and then run the tests.
 
 ### Configuring Typesense
 
-The tests assume Typesense is running on a non-standard port, 7777, with the
-api key of 777.
+The tests don't require Typesense to be running unless
+`PERL_TEST_TYPESENSE_MODE` is set to `devel`. Then, the tests assume Typesense
+is running on a non-standard port, 7777, with the api key of 777.
 
 If you use docker, you can get Typesense up and running with:
 
@@ -39,11 +51,17 @@ interfering with a live installation (though it's still possible).
 
 ### Running the Tests
 
-If you're not familiar with
-[Dist::Zilla](https://metacpan.org/pod/Dist::Zilla), don't worry about it. The
-tests can still be run via `prove -rl t`. You can see the `dist.ini` for the
-list of dependencies, or the `Makefile.PL` from the [the CPAN
-distribution](https://metacpan.org/pod/Search::Typesense).
+If you wish to run the tests against a real Typesense server, do this:
+
+    PERL_TEST_TYPESENSE_MODE=devel prove -l t
+    PERL_TEST_TYPESENSE_MODE=devel prove -lv t   # verbose mode
+
+If you with to regenerate the cached test fixtures:
+
+    PERL_TEST_TYPESENSE_MODE=record prove -l t
+
+Note that by default, if you change any of the `t/*.t` files, the fixtures
+for the changed files will be automatically regenerated.
 
 ### Start Hacking
 
