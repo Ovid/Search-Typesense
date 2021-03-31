@@ -2,7 +2,7 @@
 
 ## Quickstart
 
-If you have Perl v5.16.0 (or higher) and docker installed:
+If you have Perl v5.16.0 (or higher) installed:
 
     git clone git@github.com:Ovid/Search-Typesense.git Mojo::UserAgent::Mockable
     cd Search-Typesense
@@ -18,7 +18,9 @@ Then just run the tests:
 
     prove -rl t
 
-If you wish to run tests against a Typesense server:
+If you wish to run tests against a Typesense server and you have docker
+installed (or you can set up Typesense any way you want, but ensure it's
+running on port 7777 with an API key of 777):
 
     docker run                           \
           -p 7777:8108 -v/tmp:/data      \
