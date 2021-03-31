@@ -127,6 +127,16 @@ sub _get_user_agent {
             if ( $current_checksum eq $cached_checksum ) {
                 $mode = 'playback';
             }
+            elsif ( $self->_force_cache ) {
+                Test::Most::diag(
+                    "Could not playback because cached checksum of $cached_checksum did not match new checksum of $current_checksum"
+                );
+            }
+        }
+        elsif ( $self->_force_cache ) {
+            Test::Most::diag(
+                "Could not playback because cached checksum file $checksum does not exist"
+            );
         }
     }
 
