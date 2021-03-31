@@ -40,7 +40,7 @@ Response shown at L<https://typesense.org/docs/0.19.0/api/#retrieve-collection>
 
 =cut
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 =head2 C<search>
 
